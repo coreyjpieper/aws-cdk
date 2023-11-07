@@ -265,7 +265,7 @@ function tryResolveCfnResource(resourceClass: reflect.ClassType): CfnResourceRef
   }
 
   // try to resolve through ancestors
-  for (const base of resourceClass.getAncestors()) {
+  for (const base of resourceClass.ancestors) {
     const ret = tryResolveCfnResource(base);
     if (ret) {
       return ret;
