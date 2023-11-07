@@ -31,10 +31,9 @@ export class ResourceReflection {
       return []; // not part of the dep stack
     }
 
-    return ConstructReflection
-      .findAllConstructs(assembly)
-      .filter(c => CoreTypes.isResourceClass(c.classType))
-      .map(c => new ResourceReflection(c));
+    return assembly.allClasses
+      .filter(c => CoreTypes.isConstructClass(c) && CoreTypes.isResourceClass(c))
+      .map(c => new ResourceReflection(new ConstructReflection(c)));
   }
 
   public readonly attributes: Attribute[]; // actual attribute props
