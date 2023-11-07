@@ -1,4 +1,4 @@
-import * as camelcase from 'camelcase';
+import { camelize, pascalize } from 'fast-case';
 import * as reflect from 'jsii-reflect';
 import { CfnResourceReflection } from './cfn-resource';
 import { ConstructReflection } from './construct';
@@ -71,7 +71,7 @@ export class ResourceReflection {
       return undefined;
     }
 
-    const resourceName = camelcase(this.cfn.basename);
+    const resourceName = camelize(this.cfn.basename);
 
     // if resource name ends with "Name" (e.g. DomainName, then just use it as-is, otherwise append "Name")
     const physicalNameProp = resourceName.endsWith('Name') ? resourceName : `${resourceName}Name`;
@@ -89,7 +89,7 @@ export class ResourceReflection {
         continue; // skip any protected properties
       }
 
-      const basename = camelcase(this.cfn.basename);
+      const basename = camelize(this.cfn.basename);
 
       // an attribute property is a property which starts with the type name
       // (e.g. "bucketXxx") and/or has an @attribute doc tag.
@@ -108,7 +108,7 @@ export class ResourceReflection {
         // okay, we don't have an explicit CFN attribute name, so we'll guess it
         // from the name of the property.
 
-        const name = camelcase(p.name, { pascalCase: true });
+        const name = pascalize(p.name);
         if (this.cfn.attributeNames.includes(name)) {
           // special case: there is a cloudformation resource type in the attribute name
           // for example 'RoleId'.

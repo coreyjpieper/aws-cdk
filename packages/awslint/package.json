@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@jsii/spec": "1.89.0",
-    "camelcase": "^6.3.0",
+    "fast-case": "^1.7.0",
     "chalk": "^4",
     "fs-extra": "^9.1.0",
     "jsii-reflect": "1.89.0",

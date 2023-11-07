@@ -1,4 +1,4 @@
-import * as camelcase from 'camelcase';
+import { pascalize } from 'fast-case';
 import * as reflect from 'jsii-reflect';
 import { CoreTypes } from './core-types';
 import { ResourceReflection } from './resource';
@@ -100,6 +100,6 @@ export class CfnResourceReflection {
       return 'Id';
     }
 
-    return camelcase(name, { pascalCase: true });
+    return pascalize(name);
   }
 }

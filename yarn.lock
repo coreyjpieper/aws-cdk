@@ -7366,6 +7366,11 @@ external-editor@^3.0.3:
     iconv-lite "^0.4.24"
     tmp "^0.0.33"
 
+fast-case@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/fast-case/-/fast-case-1.7.0.tgz#0ce670617cdd3b03c32fb7cf7b0be8f91a9dfbef"
+  integrity sha512-kkLws9Nx9kkXjZ6ng6gaFWm+qssXAxSej37fpdur7V1U5R8/lp0rps5aGo/XkhNjWyr+agjRA5y91rw8ZRBviQ==
+
 fast-check@^3.13.1:
   version "3.13.1"
   resolved "https://registry.npmjs.org/fast-check/-/fast-check-3.13.1.tgz#32c7a78621098bd30d71e40c0e269a728a3188e2"
