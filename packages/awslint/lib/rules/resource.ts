@@ -158,7 +158,7 @@ resourceLinter.add({
   code: 'resource-class-extends-resource',
   message: 'resource classes must extend "cdk.Resource" directly or indirectly',
   eval: e => {
-    const resourceBase = e.ctx.sys.findClass(e.ctx.core.resourceClass.fqn);
+    const resourceBase = e.ctx.sys.findClass(e.ctx.core.resourceClassFqn);
     e.assert(e.ctx.construct.classType.extends(resourceBase), e.ctx.construct.fqn);
   },
 });
@@ -179,7 +179,7 @@ resourceLinter.add({
     const resourceInterface = e.ctx.construct.interfaceType;
     if (!resourceInterface) { return; }
 
-    const resourceInterfaceFqn = e.ctx.core.resourceInterface.fqn;
+    const resourceInterfaceFqn = e.ctx.core.resourceInterfaceFqn;
     const interfaceBase = e.ctx.sys.findInterface(resourceInterfaceFqn);
     e.assert(resourceInterface.extends(interfaceBase), resourceInterface.fqn);
   },
