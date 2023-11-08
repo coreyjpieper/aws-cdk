@@ -37,7 +37,7 @@ const config = {
   },
   'service': {
     type: 'string',
-    description: 'Generate files only for a specific service, e.g. aws-lambda',
+    description: 'Generate files only for a specific service, e.g. AWS::S3',
   },
   'clear-output': {
     type: 'boolean',
@@ -83,7 +83,7 @@ async function main(argv: string[]) {
 
   const outputDir = positionals[0];
   if (!outputDir) {
-    throw new Error('Please specify the output-path');
+    throw new EvalError('Please specify the output-path');
   }
 
   const pss: Record<PatternKeys, true> = { moduleName: true, serviceName: true, serviceShortName: true };
@@ -117,7 +117,10 @@ async function main(argv: string[]) {
   };
 
   if (options.service && typeof options.service === 'string') {
-    const moduleMap = { [options.service]: { services: [options.service] } };
+    if (!options.service.includes('::')) {
+      throw new EvalError('Service must be in the form `<Partition>::<Service>, e.g. AWS::S3');
+    }
+    const moduleMap = { [options.service.toLocaleLowerCase().split('::').join('-')]: { services: [options.service] } };
     await generate(moduleMap, generatorOptions);
     return;
   }
@@ -126,9 +129,15 @@ async function main(argv: string[]) {
 }
 
 main(process.argv.splice(2)).catch((e) => {
-  log.error(`Error: ${e.message}\n`);
-  showHelp(command, args);
   process.exitCode = 1;
+
+  if (e instanceof EvalError) {
+    log.error(`Error: ${e.message}\n`);
+    showHelp(command, args);
+  } else {
+    log.error(e);
+  }
+
 });
 
 function stringOr(pat: unknown, def: string) {

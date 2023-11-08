@@ -59,7 +59,7 @@ Options:
     --pattern                           [string] [default: %moduleName%/%serviceShortName%.generated.ts]
       File and path pattern for generated files
     --service                           [string]
-      Generate files only for a specific service, e.g. aws-lambda
+      Generate files only for a specific service, e.g. AWS::S3
 
 Path patterns can use the following variables:
 
